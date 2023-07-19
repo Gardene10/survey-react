@@ -1,5 +1,5 @@
 // factory paragerar um autentication fake
-import { AuthenticationParams } from "domain/usecases/authentication";
+import { AuthenticationParams } from "@/domain/usecases/authentication";
 
 
 import faker from 'faker'
