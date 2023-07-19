@@ -1,13 +1,11 @@
 
 // classe de produçao
 
-import { HttpPostClient } from "@/data/protocols/http/http-post-client";
-import { HttpStatusCode } from "@/data/protocols/http/http-response";
-import { InvalidCredentialsError } from "@/domain/errors/Invalid-credentials-error";
-import { UnexpectedError } from "@/domain/errors/unexpected-error";
-import { AccountModel } from "@/domain/models/account-models";
-import { Authentication } from "@/domain/usecases/authentication";
-import { AuthenticationParams } from "@/domain/usecases/authentication";
+import { HttpPostClient,HttpStatusCode } from "@/data/protocols/http";
+import { Authentication, AuthenticationParams } from "@/domain/usecases";
+import { InvalidCredentialsError,UnexpectedError } from "@/domain/errors";
+import { AccountModel } from "@/domain/models";
+
 
 export class RemoteAuthentication implements Authentication {
     constructor  (
