@@ -16,12 +16,8 @@
         "@/*":["*"]
       },
       "allowJs": true,
-      "skipLibCheck": true,
-      "allowSyntheticDefaultImports": true,
-      "forceConsistentCasingInFileNames": true,
       "resolveJsonModule": true,
-      "noEmit": true
     },
-    "include": ["src", "tests/a.spec.ts"],
+    "include": ["src"],
     
   }
