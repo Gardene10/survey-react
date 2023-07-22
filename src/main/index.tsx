@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM  from "react-dom";
-import Login from "@/presentention/pages/login/login";
+import {Router} from "@/presentention/components";
 
 ReactDOM.render(
-    <Login/>,
+    <Router/>,
     document.getElementById('main')
 )
