@@ -9,10 +9,12 @@ type SutTypes = {
 }
 class ValidationSpy implements Validation {
     errorMessage: string 
-    input : object      // herdou a classe e add + uma propriedade
+    fiedName: string
+    fiedValue: string     // herdou a classe e add + uma propriedade
 
-    validate (input: object): string {
-        this.input = input
+    validate (fiedName: string, fiedValue: string): string {
+        this.fiedName = fiedName
+        this.fiedValue = fiedValue
         return this.errorMessage
     }
 }
@@ -51,17 +53,15 @@ describe('LoginComponent',()=>{
         const {sut, validationSpy} = makeSut()
         const emailInput = sut.getByTestId('email')
         fireEvent.input(emailInput,{target: {value: 'any_email'}})
-        expect(validationSpy.input).toEqual({
-            email:'any_email'
-        }) 
+        expect(validationSpy.fiedName).toBe('email') 
+        expect(validationSpy.fiedValue).toBe('any_email') 
     }) 
 
     test('Should validation with correct password',() => {
         const {sut, validationSpy} = makeSut()
         const passwordInput = sut.getByTestId('password')
         fireEvent.input(passwordInput,{target: {value: 'any_password'}})
-        expect(validationSpy.input).toEqual({
-            password:'any_password'
+        expect(validationSpy.fiedName).toBe('password') 
+        expect(validationSpy.fiedValue).toBe('any_password')
       })  
    })
-})
