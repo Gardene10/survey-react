@@ -1,22 +1,11 @@
 import React from "react";
 import {RenderResult, render,fireEvent, cleanup} from '@testing-library/react'
 import Login from "./login";
-import { Validation } from "@/presentention/protocols/validation";
+import { ValidationSpy } from "@/presentention/test";
 
 type SutTypes = {
     sut: RenderResult
     validationSpy: ValidationSpy
-}
-class ValidationSpy implements Validation {
-    errorMessage: string 
-    fiedName: string
-    fiedValue: string     // herdou a classe e add + uma propriedade
-
-    validate (fiedName: string, fiedValue: string): string {
-        this.fiedName = fiedName
-        this.fiedValue = fiedValue
-        return this.errorMessage
-    }
 }
 
 //factory makeSut 
