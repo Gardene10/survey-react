@@ -1,20 +1,36 @@
 import React from "react";
-import {RenderResult, render} from '@testing-library/react'
+import {RenderResult, render,fireEvent, cleanup} from '@testing-library/react'
 import Login from "./login";
+import { Validation } from "@/presentention/protocols/validation";
 
 type SutTypes = {
     sut: RenderResult
+    validationSpy: ValidationSpy
 }
+class ValidationSpy implements Validation {
+    errorMessage: string 
+    input : object      // herdou a classe e add + uma propriedade
+
+    validate (input: object): string {
+        this.input = input
+        return this.errorMessage
+    }
+}
+
 //factory makeSut 
 const makeSut = (): SutTypes => {
-    const sut = render(<Login/>)
+    const validationSpy = new ValidationSpy()
+    const sut = render(<Login validation={validationSpy}/>)
     return {
-        sut
+        sut,
+        validationSpy
     }
 
 }
 
 describe('LoginComponent',()=>{
+    afterEach(cleanup)
+
     test('Should start with initial state',() => {
         const {sut} = makeSut()
         const errorWrap = sut.getByTestId('error-wrap')
@@ -26,9 +42,16 @@ describe('LoginComponent',()=>{
         expect(emailInput.textContent).toBe('❤️')
         const passwordInput = sut.getByTestId('password-status')
         expect(passwordInput.title).toBe('Campo obrigatório')
-        expect(passwordInput.textContent).toBe('❤️')
-        
-        
-        
+        expect(passwordInput.textContent).toBe('❤️')  
     })
+
+    test('Should validation with correct value',() => {
+        const {sut, validationSpy} = makeSut()
+        const emailInput = sut.getByTestId('email')
+        fireEvent.input(emailInput,{target: {value: 'any_email'}})
+        expect(validationSpy.input).toEqual({
+            email:'any_email'
+        })
+    })
+    
 })
